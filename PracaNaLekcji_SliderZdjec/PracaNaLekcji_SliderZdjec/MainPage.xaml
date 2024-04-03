@@ -13,7 +13,7 @@
                             <Frame>
                                 <Image Source="{Binding Source}" HeightRequest="500" Aspect="AspectFill" Margin="20"/>
                             </Frame>
-                            <Frame>
+                            <Frame Margin="0">
                                 <Button Text="Delete" Clicked="DelImg"/>
                             </Frame>
                         </StackLayout>
@@ -21,6 +21,7 @@
                 </DataTemplate>
             </CarouselView.ItemTemplate>
         </CarouselView>
+        
         <Button Text="Gallery" Clicked="GoToGallery"/>
     </StackLayout>
 
