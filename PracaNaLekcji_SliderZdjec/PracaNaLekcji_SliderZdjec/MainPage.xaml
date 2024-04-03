@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PracaNaLekcji_SliderZdjec.MainPage">
+
+    <StackLayout>
+        
+        <CarouselView x:Name="imgCarousel">
+            <CarouselView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout>
+                        <StackLayout>
+                            <Frame>
+                                <Image Source="{Binding Source}" HeightRequest="500" Aspect="AspectFill" Margin="20"/>
+                            </Frame>
+                            <Frame>
+                                <Button Text="Delete" Clicked="DelImg"/>
+                            </Frame>
+                        </StackLayout>
+                    </StackLayout>
+                </DataTemplate>
+            </CarouselView.ItemTemplate>
+        </CarouselView>
+        <Button Text="Gallery" Clicked="GoToGallery"/>
+    </StackLayout>
+
+</ContentPage>
