@@ -12,39 +12,80 @@ namespace PracaNaLekcji_SliderZdjec
 {
     public partial class MainPage : ContentPage
     {
+        List<Image> _image;
+        private bool _isAutoSliding = true;
+        private bool _timerRunning = false;
         public MainPage()
         {
             InitializeComponent();
+            _image = new List<Image>();
+
+            var img = new Image()
+            {
+                Name = "Auto",
+                Source = "Red.jpg"
+            };
+
+            _image.Add(img);
+
+            ChangeImage();
+        }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            LoadImg();
         }
         private void LoadImg()
         {
-            var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Images");
-            List<Image> images = new List<Image>();
-
-            if(Directory.Exists(path))
+            imgCarousel.ItemsSource = null;
+            imgCarousel.ItemsSource = _image;
+        }
+        private void ChangeImage()
+        {
+            if(!_timerRunning)
             {
-                string[] imgFiles = Directory.GetFiles(path);
-
-                foreach(var imgFile in imgFiles)
+                Device.StartTimer(TimeSpan.FromSeconds(), () =>
                 {
-                    images.Add(new Image { Source = FileImageSource.FromFile(imgFile), Name = imgFile });
-                }
+                    if(!_isAutoSliding)
+                    {
+                        _timerRunning = false;
+                        return false;
+                    }
+
+                    imgCarousel.Position = (imgCarousel.Position + 1) % _image.Count;
+                    _timerRunning = true;
+                    return true;
+                });
+            }
+        }
+        private void AddImage(object sender, EventArgs e)
+        {
+            string imageName = ImageNameEntry.Text;
+            string imageSource = ImageSourceEntry.Text;
+
+            if (String.IsNullOrEmpty(imageName) || String.IsNullOrEmpty(imageSource))
+            {
+                DisplayAlert("Info", "Proszę wprowadzić dane", "OK");
             }
             else
             {
-                Console.WriteLine("Ścieżka do folderu nie istnieje");
+                var img = new Image()
+                {
+                    Name = imageName,
+                    Source = imageSource
+                };
+
+                _image.Add(img);
+                LoadImg();
+
+                ImageNameEntry.Text = string.Empty;
+                ImageSourceEntry.Text = string.Empty;
             }
-            imgCarousel.ItemsSource = images;
         }
 
-        private void DelImg(object sender, EventArgs e)
+        private void ToggleSlide(object sender, EventArgs e)
         {
 
-        }
-
-        private async void GoToGallery(object sender, EventArgs e)
-        {
-            
         }
     }
 }
