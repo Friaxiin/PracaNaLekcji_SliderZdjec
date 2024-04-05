@@ -1,28 +1,42 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PracaNaLekcji_SliderZdjec.MainPage">
 
-    <StackLayout>
-        
-        <CarouselView x:Name="imgCarousel">
-            <CarouselView.ItemTemplate>
-                <DataTemplate>
-                    <StackLayout>
+    <ContentPage Title="Your gallery">
+        <StackLayout>
+            <CarouselView x:Name="imgCarousel">
+                <CarouselView.ItemTemplate>
+                    <DataTemplate>
                         <StackLayout>
-                            <Frame>
-                                <Image Source="{Binding Source}" HeightRequest="500" Aspect="AspectFill" Margin="20"/>
-                            </Frame>
-                            <Frame Margin="0">
-                                <Button Text="Delete" Clicked="DelImg"/>
-                            </Frame>
-                        </StackLayout>
-                    </StackLayout>
-                </DataTemplate>
-            </CarouselView.ItemTemplate>
-        </CarouselView>
-        
-        <Button Text="Gallery" Clicked="GoToGallery"/>
-    </StackLayout>
+                            <StackLayout>
+                                <Frame>
+                                    <StackLayout>
+                                        <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="20" Margin="0" HorizontalOptions="Center"/>
 
-</ContentPage>
+                                        <Image Source="{Binding Source}" HeightRequest="500" Aspect="AspectFill" Margin="20"/>
+                                    </StackLayout>
+                                </Frame>
+                                <Frame Margin="0">
+                                    <Button Text="Delete" Clicked="DelImg" TextColor="Red" BorderColor="Red" BackgroundColor="White" BorderWidth="3" CornerRadius="90"/>
+                                </Frame>
+                            </StackLayout>
+                        </StackLayout>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+            <Button Text="Auto slide ON" x:Name="autoSlide" Clicked="ToggleAutoSlide" TextColor="Red" BorderColor="Red" BackgroundColor="White" BorderWidth="3" CornerRadius="90"/>
+        </StackLayout>
+    </ContentPage>
+
+    <ContentPage Title="Add Img">
+        <StackLayout>
+            <Label Text="Dodaj zdjęcie" FontSize="24" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
+
+            <Entry Placeholder="Source" x:Name="sourceEntry" HorizontalTextAlignment="Center" Margin="10"/>
+            <Entry Placeholder="Name" x:Name="nameEntry" HorizontalTextAlignment="Center" Margin="10"/>
+
+            <Button Text="Add Image" Clicked="AddImg" TextColor="Red" BorderColor="Red" BackgroundColor="White" BorderWidth="3" CornerRadius="90"/>
+        </StackLayout> 
+    </ContentPage>
+</TabbedPage>
